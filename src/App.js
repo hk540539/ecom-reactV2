@@ -8,11 +8,16 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/sign-in-and-si
 import CheckOutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+  addCollectionsAndDocuments
+} from "./firebase/firebase.utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.action";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
+import { selectCollectionsForPreview } from "./redux/shop/shop.selector";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +25,11 @@ function App() {
   const { currentUser } = useSelector(
     createStructuredSelector({ currentUser: selectCurrentUser })
   );
+
+  const { collectionsArray } = useSelector(
+    createStructuredSelector({ collectionsArray: selectCollectionsForPreview })
+  );
+  // console.log(collectionsArray, "after useSelectot");
 
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -35,6 +45,12 @@ function App() {
         });
       } else {
         dispatch(setCurrentUser(userAuth));
+        console.log(collectionsArray, "after useSelectot");
+
+        addCollectionsAndDocuments(
+          "collections",
+          collectionsArray.map(({ title, items }) => ({ title, items }))
+        );
       }
     });
     return () => {
