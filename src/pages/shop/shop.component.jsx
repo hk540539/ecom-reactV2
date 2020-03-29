@@ -24,7 +24,6 @@ const ShopPage = ({ match }) => {
       // console.log(snapshot.docs.map(data => data.data()))
       const collectionMap = convertCollectionsSnapshotToMap(snapshot);
       dispatch(updateCollections(collectionMap));
-      console.log(collectionMap, "dataskcnnsld");
       setLoading(false);
     });
     return () => {
