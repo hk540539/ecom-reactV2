@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import FormInput from '../form-input/form-input.component';
-import './sign-in.style.scss';
-import CustomButton from '../custom-button/custom-button.component';
-import { signInWithGoogle, auth } from '../../firebase/firebase.utils';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import FormInput from "../form-input/form-input.component";
+import "./sign-in.style.scss";
+import CustomButton from "../custom-button/custom-button.component";
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../redux/user/user.action";
 
 const SignIn = () => {
-  const [state, setState] = useState({ email: '', password: '' });
+  const [state, setState] = useState({ email: "", password: "" });
 
-  const handleSubmit = async e => {
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = state;
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      setState({ email: '', password: '' });
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(emailSignInStart({ email, password }));
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { value, name } = e.target;
     setState({
       ...state,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -49,7 +49,11 @@ const SignIn = () => {
         />
         <div className="buttons">
           <CustomButton type="submit">Sign In</CustomButton>
-          <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>
+          <CustomButton
+            type="button"
+            onClick={() => dispatch(googleSignInStart())}
+            isGoogleSignIn
+          >
             Sign In With Google
           </CustomButton>
         </div>

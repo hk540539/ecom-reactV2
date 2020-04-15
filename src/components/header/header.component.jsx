@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import "./header.style.scss";
-import { auth } from "../../firebase/firebase.utils";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { selectCartHidden } from "../../redux/cart/cart.selector";
 import { selectCurrentUser } from "../../redux/user/user.selector";
+import { signOutStart } from "../../redux/user/user.action";
 
 import { createStructuredSelector } from "reselect";
 const Header = () => {
@@ -35,9 +35,11 @@ const Header = () => {
   const { currentUser, hidden } = useSelector(
     createStructuredSelector({
       currentUser: selectCurrentUser,
-      hidden: selectCartHidden
+      hidden: selectCartHidden,
     })
   );
+
+  const dispatch = useDispatch();
 
   return (
     <div className="header">
@@ -52,7 +54,7 @@ const Header = () => {
           CONTACT
         </Link>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <div className="option" onClick={() => dispatch(signOutStart())}>
             SIGN OUT
           </div>
         ) : (

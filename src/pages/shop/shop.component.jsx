@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import { Route } from "react-router-dom";
 import CollectionPageContainer from "../collection/collection.container";
 import CollectionOverViewContainer from "../../components/collection-overview/collection-overview.container";
-import { fetchCollectionsStartAsync } from "../../redux/shop/shop.action";
+import { fetchCollectionsStart } from "../../redux/shop/shop.action";
+// import { fetchCollectionsStart } from "../../redux/shop/shop.sagas";
 
 const ShopPage = ({ match }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCollectionsStartAsync());
+    dispatch(fetchCollectionsStart());
   }, [dispatch]);
 
   return (
