@@ -14,21 +14,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { checkUserSession } from "./redux/user/user.action";
+import { connect } from "react-redux";
 
-function App() {
-  const dispatch = useDispatch();
-  // const currentUser = useSelector((state) => state.user.currentUser);
-  const { currentUser } = useSelector(
-    createStructuredSelector({ currentUser: selectCurrentUser })
-  );
+// function App({ checkUserSession }) {
+//   const dispatch = useDispatch();
+//   // const currentUser = useSelector((state) => state.user.currentUser);
+//   const { currentUser } = useSelector(
+//     createStructuredSelector({ currentUser: selectCurrentUser })
+//   );
+//   useEffect(() => {
+//     dispatch(checkUserSession());
+//   }, [dispatch, checkUserSession]);
+
+const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
-    dispatch(checkUserSession());
-  }, [dispatch]);
-
-  // const App = ({ checkUserSession, currentUser }) => {
-  //   useEffect(() => {
-  //     checkUserSession();
-  //   }, [checkUserSession]);
+    checkUserSession();
+  }, [checkUserSession]);
 
   return (
     <div>
@@ -47,14 +48,15 @@ function App() {
       </Switch>
     </div>
   );
-}
-// const mapStateToProps = createStructuredSelector({
-//   currentUser: selectCurrentUser,
-// });
-// const mapDispatchToProps = (dispatch) => ({
-//   checkUserSession: () => dispatch(checkUserSession()),
-// });
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  checkUserSession: () => dispatch(checkUserSession()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+//export default App;

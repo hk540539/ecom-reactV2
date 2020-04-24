@@ -5,13 +5,14 @@ import CollectionPageContainer from "../collection/collection.container";
 import CollectionOverViewContainer from "../../components/collection-overview/collection-overview.container";
 import { fetchCollectionsStart } from "../../redux/shop/shop.action";
 // import { fetchCollectionsStart } from "../../redux/shop/shop.sagas";
+import { connect } from "react-redux";
 
-const ShopPage = ({ match }) => {
+const ShopPage = ({ match, fetchCollectionsStart }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCollectionsStart());
-  }, [dispatch]);
+  }, [dispatch, fetchCollectionsStart]);
 
   return (
     <div className="shop-page">
@@ -29,4 +30,10 @@ const ShopPage = ({ match }) => {
   );
 };
 
-export default ShopPage;
+//export default ShopPage;
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
+});
+
+export default connect(null, mapDispatchToProps)(ShopPage);
