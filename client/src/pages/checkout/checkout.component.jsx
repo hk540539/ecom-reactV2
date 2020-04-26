@@ -17,7 +17,6 @@ const CheckOutPage = () => {
       total: selectCartTotal,
     })
   );
-  console.log(typeof (total, "From check out"));
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -41,14 +40,15 @@ const CheckOutPage = () => {
         <CheckOutItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <div className="total">
-        <span>Total: &#8377;{Number(total)}</span>
+        <span>Total: &#8377;{total}</span>
       </div>
       <div className="test-warning">
         *Please use the following test credit for payment*
         <br />
-        Card Nummber:- 5555 5555 5555 4444 Expiry Year:- Any CVV Number:- Any
+        Card Number:- 5555 5555 5555 4444 Expiry Year:- Any Year From Now CVV
+        Number:- Any
       </div>
-      <StripeCheckoutButton price={Number(total)} />
+      <StripeCheckoutButton price={total} />
     </div>
   );
 };
