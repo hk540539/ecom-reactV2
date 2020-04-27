@@ -5,6 +5,14 @@
 
   @media screen and (max-width: 800px) {
     width: 100%;
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      .custom-button {
+        min-width: 120px;
+        padding: 0 5px;
+      }
+    }
   }
   .title {
     margin: 10px 0;
