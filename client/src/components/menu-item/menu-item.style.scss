@@ -24,11 +24,18 @@
 
   &.large {
     height: 380px;
+    @media screen and (max-width: 800px) {
+      height: 200px;
+    }
   }
 
   &.normal {
     height: 240px;
+    @media screen and (max-width: 800px) {
+      height: 200px;
+    }
   }
+
   &:first-child {
     margin-right: 7.5px;
   }

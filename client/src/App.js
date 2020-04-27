@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import Homepage from "./pages/homepage/homepage.component";
@@ -8,6 +7,8 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/sign-in-and-si
 import CheckOutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
+import GlobalStyle from "./global.styles";
+
 // import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { useDispatch, useSelector } from "react-redux";
 // import { setCurrentUser } from "./redux/user/user.action";
@@ -33,6 +34,7 @@ const App = ({ checkUserSession, currentUser }) => {
 
   return (
     <div>
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path="/" component={Homepage}></Route>
